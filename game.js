@@ -70,7 +70,7 @@ function checkAnswer(userClick) {
     $("h1").html(
       "GAME OVER!<br>You reached level " +
         level +
-        ".<br>Press the 'S' to start over"
+        ".<br>Press the 'Start' to try again"
     );
     $("body").addClass("game-over");
     var loseSound = new Audio("sounds/wrong.mp3");
