@@ -12,22 +12,22 @@ function playSound(name) {
   // });
 }
 
-function animatePress(currentColour, index) {
+function animatePress(currentColour) {
   $("#" + currentColour).addClass("pressed");
   setTimeout(function () {
     $("#" + currentColour).removeClass("pressed");
   }, 300);
 }
 
-function loopPattern() {
-  for (let i = 0; i < gamePattern.length; i++) {
-    let curr = gamePattern[i];
-    console.log(curr);
-    setTimeout(() => {
-      playSound(curr);
-      animatePress(curr, i);
-    }, 500 * (i + 1));
-  }
+// Update to chain animations
+function loopPattern(index = 0) {
+  if (index >= gamePattern.length) return;
+  const curr = gamePattern[index];
+  playSound(curr);
+  animatePress(curr);
+  setTimeout(() => {
+    loopPattern(index + 1);
+  }, 600);
 }
 
 function nextSequence() {
@@ -62,7 +62,7 @@ function checkAnswer(userClick) {
     gamePattern[userClick - 1] === userClickedPattern[userClick - 1]
   ) {
     // if the last click of the current level (i.e. 2nd click on level 2), start next level sequence
-    setTimeout(nextSequence, 1000);
+    setTimeout(nextSequence, 1500);
   } else if (gamePattern[userClick - 1] === userClickedPattern[userClick - 1]) {
     currentClick++;
   } else {
